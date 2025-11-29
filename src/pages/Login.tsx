@@ -1,51 +1,101 @@
-import {  useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
+import { Card } from "../components/Card";
 
 export function Login() {
   const [name, setName] = useState("");
   const setPlayerName = useGameStore((s) => s.setPlayerName);
-  const startGame = useGameStore((s) => s.startGame);
   const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
-    setPlayerName(name.trim());
-    startGame();
-    navigate("/game");
+    if (name.trim()) {
+      setPlayerName(name.trim());
+      navigate("/game");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-mmx-bg text-white flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-mmx-card rounded-2xl p-8 shadow-xl">
-        <h1 className="text-3xl font-semibold mb-2">Welcome back</h1>
-        <p className="text-sm text-gray-400 mb-6">
-          Enter your name to start playing
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm mb-1" htmlFor="name">
-              Name
-            </label>
-            <input
-              id="name"
-              className="w-full rounded-xl bg-black/60 border border-neutral-700 px-3 py-2 outline-none focus:border-mmx-orange focus:ring-1 focus:ring-mmx-orange"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Type your name"
+    <div className="min-h-screen bg-mmx-bg flex items-center justify-center px-4 w-screen">
+      <div className="w-full max-w-md">
+        {/* Logo e titolo */}
+        <div className="text-center mb-8 space-y-6">
+          <div className="flex justify-center">
+            <img
+              src="/mxm_logo.png"
+              alt="Musixmatch"
+              className="w-24 h-24 animate-pulse"
             />
           </div>
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              Who Sings?
+            </h1>
+            <p className="text-white">
+              Guess the artist from the lyrics!
+            </p>
+          </div>
+        </div>
 
-          <button
-            type="submit"
-            className="w-full py-2.5 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition disabled:opacity-60"
-            disabled={!name.trim()}
-          >
-            Start playing
-          </button>
-        </form>
+        <Card className="w-[320px] md:w-full m-auto">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm text-white mb-1"
+              >
+                Enter your name
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-mmx-orange focus:border-transparent transition"
+                required
+                minLength={3}
+                maxLength={20}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition disabled:opacity-40"
+              disabled={name.trim().length < 3}
+            >
+              PLAY!
+            </button>
+          </form>
+        </Card>
+
+        {/* Footer con powered by */}
+        <div className="mt-6 text-center">
+          <p className="text-xs text-gray-500">
+            Powered by{" "}
+            <a
+              href="https://github.com/roccorefice"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+            >
+              Rocco Orefice
+            </a>
+          </p>
+          <p className="text-xs text-gray-500">
+            for a{" "}
+            <a
+              href="https://www.musixmatch.com/it"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-mmx-orange hover:underline"
+            >
+              Musixmatch
+            </a>
+            {" "}test
+          </p>
+        </div>
       </div>
     </div>
   );
