@@ -20,22 +20,15 @@ export function Login() {
     <div className="min-h-screen bg-mmx-bg flex items-center justify-center px-4 w-screen">
       <div className="w-full max-w-md">
         {/* Logo e titolo */}
-        <div className="text-center mb-8 space-y-6">
-          <div className="flex justify-center">
+        <div className="text-center mb-8 space-y-2">
             <img
-              src="/mxm_logo.png"
+              src="/ws_logo.png"
               alt="Musixmatch"
-              className="w-24 h-24 animate-pulse"
+              className="w-[260px] h-fit rounded-2xl m-auto"
             />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-white mb-2">
-              Who Sings?
-            </h1>
-            <p className="text-white">
+            <p className="text-white italic font-semibold text-lg mt-0">
               Guess the artist from the lyrics!
             </p>
-          </div>
         </div>
 
         <Card className="w-[320px] md:w-full m-auto">

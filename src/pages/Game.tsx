@@ -121,7 +121,13 @@ export function Game() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-xs text-gray-400">Who Sings?</p>
+                        <div className="flex items-center gap-x-2">
+                                <img
+                                    src="/ws_logo.png"
+                                    alt="Musixmatch"
+                                    className="w-fit h-6 rounded-md"
+                                />
+                        </div>
                         <p className="text-sm text-gray-300">Player: {playerName}</p>
                     </div>
                     <button
@@ -213,8 +219,8 @@ export function Game() {
                 {selectedAnswer && (
                     <div
                         className={`text-center p-3 rounded-xl ${isCorrect
-                                ? "bg-green-500/10 text-green-400"
-                                : "bg-red-500/10 text-red-400"
+                            ? "bg-green-500/10 text-green-400"
+                            : "bg-red-500/10 text-red-400"
                             }`}
                     >
                         {isCorrect ? (
