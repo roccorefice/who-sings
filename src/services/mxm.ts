@@ -39,7 +39,6 @@ async function fetchWithRetry(
   throw new Error("Max retries exceeded");
 }
 
-
 // ============ API FUNCTIONS ============
 
 /**
@@ -171,18 +170,25 @@ async function generateQuestion(
   }
 
   // Filtra artisti diversi dall'artista corretto
-  const wrongOptions = wrongArtists
-    .filter((a) => a.artist_name !== track.artist_name)
-    .slice(0, 2)
-    .map((a) => a.artist_name);
+  const availableWrongArtists = wrongArtists.filter(
+    (a) => a.artist_name !== track.artist_name
+  );
 
   // Se non abbiamo abbastanza opzioni sbagliate, skippa
-  if (wrongOptions.length < 2) {
+  if (availableWrongArtists.length < 2) {
     return null;
   }
 
+  // Randomizza e prendi 2 artisti sbagliati casuali
+  const shuffledWrongArtists = availableWrongArtists
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 2)
+    .map((a) => a.artist_name);
+
   // Crea array con tutte le opzioni e mischia
-  const options = [track.artist_name, ...wrongOptions].sort(() => Math.random() - 0.5);
+  const options = [track.artist_name, ...shuffledWrongArtists].sort(
+    () => Math.random() - 0.5
+  );
 
   return {
     trackId: track.track_id,

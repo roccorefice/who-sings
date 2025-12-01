@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
 import { generateQuizQuestions } from "../services/mxm";
+import { Card } from "../components/Card";
 
 const TOTAL_QUESTIONS = 5;
 const POINTS_PER_CORRECT = 10;
@@ -11,7 +12,6 @@ export function Game() {
     const hasLoadedQuestions = useRef(false);
 
     // Zustand store
-    const playerName = useGameStore((s) => s.playerName);
     const score = useGameStore((s) => s.score);
     const status = useGameStore((s) => s.status);
     const questions = useGameStore((s) => s.questions);
@@ -91,7 +91,7 @@ export function Game() {
     // Loading state
     if (status === "loading" || questions.length === 0) {
         return (
-            <div className="min-h-screen bg-mmx-bg text-white flex items-center justify-center px-4">
+            <div className="min-h-screen w-screen bg-mmx-bg text-white flex items-center justify-center px-4">
                 <div className="text-center space-y-4">
                     {error ? (
                         <>
@@ -116,22 +116,26 @@ export function Game() {
     }
 
     return (
-        <div className="min-h-screen bg-mmx-bg text-white flex items-center justify-center px-4 py-8">
-            <div className="w-full max-w-xl bg-mmx-card rounded-2xl p-6 shadow-xl space-y-6">
+        <div className="h-screen bg-mmx-bg text-white flex items-center justify-center px-4 py-8 w-screen">
+            <div className="w-full h-full md:h-2/3 md:w-1/2 bg-mmx-card rounded-2xl p-6 shadow-xl space-y-6 relative">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
                         <div className="flex items-center gap-x-2">
-                                <img
-                                    src="/ws_logo.png"
-                                    alt="Musixmatch"
-                                    className="w-fit h-6 rounded-md"
-                                />
+                            <img
+                                src="/mxm_orange_logo.png"
+                                alt="Musixmatch"
+                                className="w-fit h-6 rounded-md"
+                            />
+                            <img
+                                src="/ws_logo.png"
+                                alt="Musixmatch"
+                                className="w-fit h-6 rounded-md"
+                            />
                         </div>
-                        <p className="text-sm text-gray-300">Player: {playerName}</p>
                     </div>
                     <button
-                        className="px-3 py-1 text-sm rounded-full bg-neutral-800 hover:bg-neutral-700 transition"
+                        className="px-3 py-1 text-sm rounded-md bg-black/50 hover:bg-neutral-700 transition"
                         onClick={handleLogout}
                     >
                         Log out
@@ -157,19 +161,16 @@ export function Game() {
                 </div>
 
                 {/* Lyric snippet */}
-                <div className="rounded-2xl bg-black/40 p-6 space-y-3 border border-neutral-800">
-                    <p className="text-lg font-medium leading-relaxed italic">
+                <Card className="p-0 gap-y-2 grid ">
+                    <p className="text-lg font-medium text-center leading-relaxed italic">
                         "{currentQuestion.snippet}"
                     </p>
                     <div className="flex items-center gap-2">
-                        <span className="inline-block text-xs px-3 py-1 rounded-full bg-mmx-orange/10 text-mmx-orange">
-                            Guess the artist
-                        </span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-500 text-center w-full">
                             Song: {currentQuestion.trackName}
                         </span>
                     </div>
-                </div>
+                </Card>
 
                 {/* Answer options */}
                 <div className="space-y-3">
@@ -215,29 +216,11 @@ export function Game() {
                     })}
                 </div>
 
-                {/* Feedback message */}
-                {selectedAnswer && (
-                    <div
-                        className={`text-center p-3 rounded-xl ${isCorrect
-                            ? "bg-green-500/10 text-green-400"
-                            : "bg-red-500/10 text-red-400"
-                            }`}
-                    >
-                        {isCorrect ? (
-                            <p className="font-medium">
-                                🎉 Correct! +{POINTS_PER_CORRECT} points
-                            </p>
-                        ) : (
-                            <p className="font-medium">
-                                ❌ Wrong! The correct answer was {currentQuestion.correctArtist}
-                            </p>
-                        )}
-                    </div>
-                )}
+                
 
                 {/* Next button */}
                 <button
-                    className="w-full py-3 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="w-auto absolute bottom-6 left-6 right-6 h-auto md:h-16 py-3 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition disabled:opacity-40 disabled:cursor-not-allowed"
                     onClick={handleNext}
                     disabled={!selectedAnswer}
                 >
