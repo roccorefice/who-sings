@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
 import { Card } from "../components/Card";
+import ws_logo from "../assets/ws_logo.png";
 
 export function Login() {
   const [name, setName] = useState("");
@@ -22,7 +23,7 @@ export function Login() {
         {/* Logo e titolo */}
         <div className="text-center mb-8 space-y-2">
             <img
-              src="/ws_logo.png"
+              src={ws_logo}
               alt="Musixmatch"
               className="w-[260px] h-fit rounded-2xl m-auto"
             />

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
 import { generateQuizQuestions } from "../services/mxm";
 import { Card } from "../components/Card";
+import mxm_logo from "../assets/mxm_orange_logo.png";
+import ws_logo from "../assets/ws_logo.png";
 
 const TOTAL_QUESTIONS = 5;
 const POINTS_PER_CORRECT = 10;
@@ -123,12 +125,12 @@ export function Game() {
                     <div>
                         <div className="flex items-center gap-x-2">
                             <img
-                                src="/mxm_orange_logo.png"
+                                src={mxm_logo}
                                 alt="Musixmatch"
                                 className="w-fit h-6 rounded-md"
                             />
                             <img
-                                src="/ws_logo.png"
+                                src={ws_logo}
                                 alt="Musixmatch"
                                 className="w-fit h-6 rounded-md"
                             />
