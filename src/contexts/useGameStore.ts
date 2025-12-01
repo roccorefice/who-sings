@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { QuizQuestion } from "../models/Quiz";
+import type { QuizQuestion } from "../services/mxm";
 
 type GameStatus = "inactive" | "loading" | "inProgress" | "finished";
 
 export interface PlayedGame {
   id: string;
   date: string;
+  playerName: string;
   score: number;
   totalQuestions: number;
   correctAnswers: number;
@@ -66,10 +67,11 @@ export const useGameStore = create<GameState & GameActions>()(
           currentQuestionIndex: state.currentQuestionIndex + 1,
         })),
       finishGame: () => {
-        const { score, history, questions, correctAnswers } = get();
+        const { score, history, questions, correctAnswers, playerName } = get();
         const newGame: PlayedGame = {
           id: crypto.randomUUID(),
           date: new Date().toISOString(),
+          playerName,
           score,
           totalQuestions: questions.length,
           correctAnswers,

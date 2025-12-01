@@ -25,7 +25,7 @@ export function Leaderboard() {
       <div className="flex flex-col gap-y-4 h-full justify-center">
 
         {lastGame && (
-          <Card padding="sm" className="!h-1/3 flex flex-col gap-y-6  justify-between w-full mx-auto  md:h-auto md:w-1/2 md:min-w-[600px]">
+          <Card padding="sm" className="max-h-1/3 flex flex-col gap-y-6 justify-between w-full mx-auto md:w-1/2 md:min-w-[600px]">
             <div className="text-center space-y-2">
               <h1 className="text-3xl font-bold text-mmx-orange">Game Over!</h1>
               <p className="text-gray-400">Great job, {playerName}! 🎵</p>
@@ -105,7 +105,10 @@ export function Leaderboard() {
                         {index + 1}
                       </div>
                       <div>
-                        <p className="text-sm font-medium">
+                        <span className="block text-md text-gray-300 mb-1 uppercase">
+                          <span className="font-medium">{game.playerName}</span>
+                        </span>
+                        <span className="block text-sm text-gray-300 font-medium">
                           {new Date(game.date).toLocaleDateString("it-IT", {
                             day: "numeric",
                             month: "short",
@@ -113,20 +116,20 @@ export function Leaderboard() {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
-                        </p>
-                        <p className="text-xs text-gray-400">
-                          {game.correctAnswers}/{game.totalQuestions} correct
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-mmx-orange">
+                      <span className="block text-md font-bold text-mmx-orange">
                         {game.score} pts
-                      </p>
-                      <p className="text-xs text-gray-400">
+                      </span>
+                      <span className="pt-2 block text-sm text-gray-300/70">
                         {Math.round((game.correctAnswers / game.totalQuestions) * 100)}%
                         accuracy
-                      </p>
+                      </span>
+                      <span className="pt-1 block text-sm text-gray-300/70">
+                          {game.correctAnswers}/{game.totalQuestions} correct
+                        </span>
                     </div>
                   </div>
                 ))}
@@ -138,7 +141,3 @@ export function Leaderboard() {
     </div>
   );
 }
-
-//  { "state": { "playerName": "Rocco", "history": [{ "id": "a735e766-848e-4238-a599-ccec48afdf5a", "date": "2025-12-01T15:13:43.922Z", "score": 20, "totalQuestions": 5, "correctAnswers": 2 }] }, "version": 0 }
-
-// { "state": { "playerName": "Rocco", "history": [{ "id": "a735e766-848e-4238-a599-ccec48afdf5a", "date": "2025-12-01T15:13:43.922Z", "score": 20, "totalQuestions": 5, "correctAnswers": 2 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }, { "id": "aef404f8-fea9-4ed4-b964-1c9656671373", "date": "2025-12-01T15:08:24.971Z", "score": 0, "totalQuestions": 5, "correctAnswers": 0 }] }, "version": 0 }
