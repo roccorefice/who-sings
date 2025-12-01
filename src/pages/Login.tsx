@@ -36,7 +36,7 @@ export function Login() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm text-white mb-1"
+                className="block text-sm text-white/60 mb-2"
               >
                 Enter your name
               </label>
@@ -64,7 +64,7 @@ export function Login() {
         </Card>
 
         {/* Footer con powered by */}
-        <div className="mt-6 text-center">
+        <div className="pt-16 text-center">
           <p className="text-xs text-gray-500">
             Powered by{" "}
             <a
