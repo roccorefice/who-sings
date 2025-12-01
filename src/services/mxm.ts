@@ -1,39 +1,42 @@
 import type { Artist } from "../models/Artist";
-import type { ChartArtistsResponse, ChartTracksResponse } from "../models/Chart";
-import type { Snippet, Track, TrackResponse, TrackSnippetResponse } from "../models/Track";
+import type { ChartTracksResponse, ChartArtistsResponse } from "../models/Chart";
+import type { Track, Snippet, TrackSnippetResponse, TrackResponse } from "../models/Track";
 
 const API = "https://api.musixmatch.com/ws/1.1";
 const API_KEY = import.meta.env.VITE_MXM_API_KEY;
 
-// Proxy CORS per bypassare il problema CORS del browser
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
+// Usa corsproxy.io - più stabile e veloce
+const CORS_PROXY = "https://corsproxy.io/?";
 
 // Helper per costruire URL con proxy
 function buildProxyUrl(endpoint: string): string {
   return `${CORS_PROXY}${encodeURIComponent(endpoint)}`;
 }
 
-// Helper per retry con backoff
+// Helper per retry con backoff semplificato
 async function fetchWithRetry(
   url: string,
-  maxRetries: number = 3,
-  delay: number = 1000
+  maxRetries: number = 2,
+  delay: number = 1500
 ): Promise<Response> {
   for (let i = 0; i < maxRetries; i++) {
     try {
       const response = await fetch(url);
+      
       if (response.ok) return response;
       
-      // Se è un errore 500, riprova
+      // Se è un errore 500 e non è l'ultimo tentativo, riprova
       if (response.status >= 500 && i < maxRetries - 1) {
-        await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+        console.warn(`Server error (${response.status}), retrying in ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
         continue;
       }
       
       return response;
     } catch (error) {
       if (i === maxRetries - 1) throw error;
-      await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+      console.warn(`Network error, retrying in ${delay}ms...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
   throw new Error("Max retries exceeded");
