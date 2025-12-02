@@ -25,9 +25,9 @@ export function Login() {
             <img
               src={ws_logo}
               alt="Musixmatch"
-              className="w-[260px] h-fit rounded-2xl m-auto"
+              className="w-[260px] h-auto block rounded-2xl m-auto"
             />
-            <p className="text-white italic font-semibold text-lg mt-0">
+            <p className="text-white italic font-semibold text-md mt-0">
               Guess the artist from the lyrics!
             </p>
         </div>

@@ -27,6 +27,7 @@ export function Game() {
     const setQuestions = useGameStore((s) => s.setQuestions);
     const setStatus = useGameStore((s) => s.setStatus);
 
+
     // Local state
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -46,7 +47,6 @@ export function Game() {
                 if (quizQuestions.length < TOTAL_QUESTIONS) {
                     throw new Error(`Only ${quizQuestions.length} questions available`);
                 }
-
                 setQuestions(quizQuestions);
                 startGame();
             } catch (error) {
@@ -127,12 +127,12 @@ export function Game() {
                             <img
                                 src={mxm_logo}
                                 alt="Musixmatch"
-                                className="w-fit h-6 rounded-md"
+                                className="w-auto h-6 rounded-md"
                             />
                             <img
                                 src={ws_logo}
                                 alt="Musixmatch"
-                                className="w-fit h-6 rounded-md"
+                                className="w-auto h-6 rounded-md"
                             />
                         </div>
                     </div>
@@ -218,7 +218,7 @@ export function Game() {
                     })}
                 </div>
 
-                
+
 
                 {/* Next button */}
                 <button
