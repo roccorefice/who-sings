@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
-import { generateQuizQuestions } from "../services/mxm";
 import { Card } from "../components/Card";
 import mxm_logo from "../assets/mxm_orange_logo.png";
 import ws_logo from "../assets/ws_logo.png";
+import { Button } from "../components/Button";
+import { generateQuizQuestions } from "../utils/helper";
 
 const TOTAL_QUESTIONS = 5;
 const POINTS_PER_CORRECT = 10;
@@ -27,13 +28,10 @@ export function Game() {
     const setQuestions = useGameStore((s) => s.setQuestions);
     const setStatus = useGameStore((s) => s.setStatus);
 
-
-    // Local state
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    // Carica domande all'inizio (solo una volta)
     useEffect(() => {
         if (hasLoadedQuestions.current) return;
         hasLoadedQuestions.current = true;
@@ -62,7 +60,7 @@ export function Game() {
     const currentQuestion = questions[currentQuestionIndex];
 
     const handleAnswer = (answer: string) => {
-        if (selectedAnswer) return; // Già risposto
+        if (selectedAnswer) return;
 
         setSelectedAnswer(answer);
         const correct = answer === currentQuestion.correctArtist;
@@ -99,12 +97,13 @@ export function Game() {
                         <>
                             <div className="text-red-500 text-5xl mb-4">⚠️</div>
                             <p className="text-xl font-semibold text-red-400">{error}</p>
-                            <button
+                            <Button
                                 onClick={() => navigate("/login")}
-                                className="mt-4 px-6 py-2 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition"
+                                size="md"
+                                className="mt-4"
                             >
                                 Back to Login
-                            </button>
+                            </Button>
                         </>
                     ) : (
                         <>
@@ -120,7 +119,6 @@ export function Game() {
     return (
         <div className="h-screen bg-mmx-bg text-white flex items-center justify-center p-4 w-screen">
             <div className="w-full h-full md:h-2/3 md:w-1/2 md:min-w-[600px] bg-mmx-card rounded-2xl p-6 shadow-xl space-y-8 relative">
-                {/* Header */}
                 <div className="flex items-center justify-between mb-12">
                     <div>
                         <div className="flex items-center gap-x-2">
@@ -136,15 +134,16 @@ export function Game() {
                             />
                         </div>
                     </div>
-                    <button
-                        className="px-3 py-1 text-sm rounded-md bg-black/50 hover:bg-neutral-700 transition"
+                    <Button
                         onClick={handleLogout}
+                        variant="ghost"
+                        size="sm"
+                        className="rounded-md"
                     >
                         Log out
-                    </button>
+                    </Button>
                 </div>
 
-                {/* Progress */}
                 <div>
                     <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
                         <span>
@@ -220,16 +219,15 @@ export function Game() {
 
 
 
-                {/* Next button */}
-                <button
-                    className="w-auto absolute bottom-6 left-6 right-6 h-auto md:h-16 py-3 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                <Button
                     onClick={handleNext}
                     disabled={!selectedAnswer}
+                    className="absolute bottom-6 left-6 right-6 md:h-16"
                 >
                     {currentQuestionIndex < questions.length - 1
                         ? "Next Question →"
                         : "Finish Game 🏁"}
-                </button>
+                </Button>
             </div>
         </div>
     );

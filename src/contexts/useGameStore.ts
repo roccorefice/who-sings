@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { QuizQuestion } from "../services/mxm";
+import type { QuizQuestion } from "../models/Quiz";
 
 type GameStatus = "inactive" | "loading" | "inProgress" | "finished";
 

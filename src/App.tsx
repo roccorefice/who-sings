@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useGameStore } from "./contexts/useGameStore";
 import { Login } from "./pages/Login";
 import { Game } from "./pages/Game";
@@ -16,9 +16,7 @@ function RequirePlayer({ children }: { children: JSX.Element }) {
 
 function App() {
   return (
-    <BrowserRouter basename="/who-sings">
       <Routes>
-        {/* redirect root -> /login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         <Route path="/login" element={<Login />} />
@@ -41,10 +39,8 @@ function App() {
           }
         />
 
-        {/* catch-all */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
-    </BrowserRouter>
   );
 }
 

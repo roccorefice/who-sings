@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
 import { Card } from "../components/Card";
 import ws_logo from "../assets/ws_logo.png";
+import { Button } from "../components/Button";
 
 export function Login() {
   const [name, setName] = useState("");
@@ -22,14 +23,14 @@ export function Login() {
       <div className="w-full max-w-md">
         {/* Logo e titolo */}
         <div className="text-center mb-8 space-y-2">
-            <img
-              src={ws_logo}
-              alt="Musixmatch"
-              className="w-[260px] h-auto block rounded-2xl m-auto"
-            />
-            <p className="text-white italic font-semibold text-md mt-0">
-              Guess the artist from the lyrics!
-            </p>
+          <img
+            src={ws_logo}
+            alt="Musixmatch"
+            className="w-[260px] h-auto block rounded-2xl m-auto"
+          />
+          <p className="text-white italic font-semibold text-md mt-0">
+            Guess the artist from the lyrics!
+          </p>
         </div>
 
         <Card className="w-[320px] md:w-full m-auto">
@@ -54,13 +55,13 @@ export function Login() {
               />
             </div>
 
-            <button
+            <Button
               type="submit"
-              className="w-full py-3 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition disabled:opacity-40"
+              fullWidth
               disabled={name.trim().length < 3}
             >
               PLAY!
-            </button>
+            </Button>
           </form>
         </Card>
 

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
 import { Card } from "../components/Card";
+import { Button } from "../components/Button";
 
 export function Leaderboard() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export function Leaderboard() {
   let endSubtitle = "";
 
   if (correct <= 1) {
-    endTitle = "Yikes... that was rough!";
+    endTitle = "Wow... that was rough!";
     endSubtitle = `Come on, ${playerName}, you can totally do better`;
   } else if (correct <= 3) {
     endTitle = "Not bad, but you can do better!";
@@ -37,9 +38,6 @@ export function Leaderboard() {
     navigate("/login");
   };
 
-
-  console.log(history);
-  
 
   return (
     <div className="h-screen bg-mmx-bg text-white p-4 md:py-52 w-screen">
@@ -79,98 +77,96 @@ export function Leaderboard() {
             </div>
 
             <div className="flex gap-3">
-              <button
+              <Button
                 onClick={handlePlayAgain}
-                className="flex-1 py-3 rounded-xl bg-mmx-orange text-white font-medium hover:brightness-110 transition"
+                className="flex-1"
               >
                 Play Again
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleLogout}
-                className="px-6 py-3 rounded-xl bg-neutral-800 text-white font-medium hover:bg-neutral-700 transition"
+                variant="ghost"
               >
                 Logout
-              </button>
+              </Button>
             </div>
           </Card>
 
         )}
 
         {/* Game history */}
-<Card
-  padding="sm"
-  className="max-h-[70vh] overflow-y-auto w-full mx-auto md:w-1/2 md:min-w-[600px] pt-0 mmx-scroll"
->
-  <h2 className="text-md flex items-center gap-2 sticky top-0 bg-mmx-card py-4">
-    <span>🏆</span>
-    <span>Top scores</span>
-  </h2>
+        <Card
+          padding="sm"
+          className="max-h-[70vh] overflow-y-auto w-full mx-auto md:w-1/2 md:min-w-[600px] pt-0 mmx-scroll"
+        >
+          <h2 className="text-md flex items-center gap-2 sticky top-0 bg-mmx-card py-4">
+            <span>🏆</span>
+            <span>Top scores</span>
+          </h2>
 
-  {history.length === 0 ? (
-    <p className="text-center text-gray-400 py-8">
-      No games played yet. Start your first game!
-    </p>
-  ) : (
-    <div className="space-y-2">
-      {[...history]
-        .sort((a, b) => b.score - a.score)
-        .map((game, index) => {
-          const isLastGame = history.length > 1 && lastGame && game.id === lastGame.id;
-          
-          return (
-            <div
-              key={game.id}
-              className={`flex items-center justify-between p-4 rounded-xl bg-black/40 border transition ${
-                isLastGame 
-                  ? "border-mmx-orange"
-                  : "border-neutral-800 hover:border-neutral-700"
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                    index === 0
-                      ? "bg-mmx-orange text-white"
-                      : "bg-neutral-800 text-gray-400"
-                  }`}
-                >
-                  {index + 1}
-                </div>
-                <div>
-                  <span className="block text-md text-gray-300 mb-1 uppercase">
-                    <span className="font-medium">
-                      {game.playerName}
-                    </span>
-                  </span>
-                  <span className="block text-sm text-gray-300 font-medium">
-                    {new Date(game.date).toLocaleDateString("it-IT", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                </div>
-              </div>
-              <div className="text-right">
-                <span className="block text-md font-bold text-mmx-orange">
-                  {game.score} pts
-                </span>
-                <span className="pt-2 block text-sm text-gray-300/70">
-                  {Math.round((game.correctAnswers / game.totalQuestions) * 100)}%
-                  accuracy
-                </span>
-                <span className="pt-1 block text-sm text-gray-300/70">
-                  {game.correctAnswers}/{game.totalQuestions} correct
-                </span>
-              </div>
+          {history.length === 0 ? (
+            <p className="text-center text-gray-400 py-8">
+              No games played yet. Start your first game!
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {[...history]
+                .sort((a, b) => b.score - a.score)
+                .map((game, index) => {
+                  const isLastGame = history.length > 1 && lastGame && game.id === lastGame.id;
+
+                  return (
+                    <div
+                      key={game.id}
+                      className={`flex items-center justify-between p-4 rounded-xl bg-black/40 border transition ${isLastGame
+                        ? "border-mmx-orange"
+                        : "border-neutral-800 hover:border-neutral-700"
+                        }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${index === 0
+                            ? "bg-mmx-orange text-white"
+                            : "bg-neutral-800 text-gray-400"
+                            }`}
+                        >
+                          {index + 1}
+                        </div>
+                        <div>
+                          <span className="block text-md text-gray-300 mb-1 uppercase">
+                            <span className="font-medium">
+                              {game.playerName}
+                            </span>
+                          </span>
+                          <span className="block text-sm text-gray-300 font-medium">
+                            {new Date(game.date).toLocaleDateString("it-IT", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="block text-md font-bold text-mmx-orange">
+                          {game.score} pts
+                        </span>
+                        <span className="pt-2 block text-sm text-gray-300/70">
+                          {Math.round((game.correctAnswers / game.totalQuestions) * 100)}%
+                          accuracy
+                        </span>
+                        <span className="pt-1 block text-sm text-gray-300/70">
+                          {game.correctAnswers}/{game.totalQuestions} correct
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
-          );
-        })}
-    </div>
-  )}
-</Card>
+          )}
+        </Card>
 
       </div>
     </div>
