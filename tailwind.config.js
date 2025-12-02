@@ -11,6 +11,10 @@ export default {
         'mmx-card': '#1F1F1F',
         'mmx-orange': '#FC532E',
       },
+      screens: {
+        "tall": { "raw": "(min-height: 1000px)" },
+        "short": { "raw": "(max-height: 1000px)" },
+      },
     },
   },
   plugins: [],

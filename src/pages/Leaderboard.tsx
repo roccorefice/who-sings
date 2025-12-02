@@ -40,7 +40,7 @@ export function Leaderboard() {
 
 
   return (
-    <div className="h-screen bg-mmx-bg text-white p-4 md:py-52 w-screen">
+    <div className="h-screen bg-mmx-bg text-white p-4 short:py-4 tall:py-42 w-screen">
       {/* Last game result */}
       <div className="flex flex-col gap-y-4 h-full justify-center">
 

@@ -118,7 +118,7 @@ export function Game() {
 
     return (
         <div className="h-screen bg-mmx-bg text-white flex items-center justify-center p-4 w-screen">
-            <div className="w-full h-full md:h-2/3 md:w-1/2 md:min-w-[600px] bg-mmx-card rounded-2xl p-6 shadow-xl space-y-8 relative">
+            <div className="w-full h-full short:h-full tall:h-2/3 md:w-1/2 md:min-w-[600px] bg-mmx-card rounded-2xl p-6 shadow-xl space-y-8 relative">
                 <div className="flex items-center justify-between mb-12">
                     <div>
                         <div className="flex items-center gap-x-2">
