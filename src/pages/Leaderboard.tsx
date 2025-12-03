@@ -88,7 +88,7 @@ export function Leaderboard() {
                 Play Again
               </Button>
 
-              <div className="flex gap-3 md:w-auto md:flex-none">
+              <div className="flex gap-3 md:w-auto w-full md:flex-none">
                 <Button
                   onClick={handleProfile}
                   variant="secondary"

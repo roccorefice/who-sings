@@ -31,13 +31,13 @@ export function Profile() {
             <div className="flex flex-col gap-y-4 h-full justify-center max-h-1/3 w-full mx-auto md:w-1/2 md:min-w-[600px]">
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                    <div>
+                    <div className="w-1/2 justify-start">
                         <h1 className="text-3xl font-bold text-mmx-orange">Profile</h1>
                         <p className="text-gray-400 mt-1">Welcome back, {playerName}!</p>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 w-1/2 justify-end">
                         <Button onClick={() => navigate("/leaderboard")} variant="secondary" size="md">
-                            ← Back
+                            Back
                         </Button>
                         <Button onClick={handleLogout} variant="ghost" size="md">
                             Logout
