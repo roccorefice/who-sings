@@ -4,6 +4,7 @@ import { Login } from "./pages/Login";
 import { Game } from "./pages/Game";
 import { Leaderboard } from "./pages/Leaderboard";
 import type { JSX } from "react";
+import { Profile } from "./pages/Profile";
 
 
 function RequirePlayer({ children }: { children: JSX.Element }) {
@@ -16,31 +17,40 @@ function RequirePlayer({ children }: { children: JSX.Element }) {
 
 function App() {
   return (
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
 
-        <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/game"
-          element={
-            <RequirePlayer>
-              <Game />
-            </RequirePlayer>
-          }
-        />
+      <Route
+        path="/game"
+        element={
+          <RequirePlayer>
+            <Game />
+          </RequirePlayer>
+        }
+      />
 
-        <Route
-          path="/leaderboard"
-          element={
-            <RequirePlayer>
-              <Leaderboard />
-            </RequirePlayer>
-          }
-        />
+      <Route
+        path="/leaderboard"
+        element={
+          <RequirePlayer>
+            <Leaderboard />
+          </RequirePlayer>
+        }
+      />
 
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
+      <Route
+        path="/profile"
+        element={
+          <RequirePlayer>
+            <Profile />
+          </RequirePlayer>
+        }
+      />
+
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   );
 }
 

@@ -38,6 +38,10 @@ export function Leaderboard() {
     navigate("/login");
   };
 
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
 
   return (
     <div className="h-screen bg-mmx-bg text-white p-4 short:py-4 tall:py-42 w-screen">
@@ -76,20 +80,34 @@ export function Leaderboard() {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-3 md:flex-row">
               <Button
                 onClick={handlePlayAgain}
-                className="flex-1"
+                className="w-full md:flex-1"
               >
                 Play Again
               </Button>
-              <Button
-                onClick={handleLogout}
-                variant="ghost"
-              >
-                Logout
-              </Button>
+
+              <div className="flex gap-3 md:w-auto md:flex-none">
+                <Button
+                  onClick={handleProfile}
+                  variant="secondary"
+                  className="w-2/3 md:w-auto"
+                >
+                  Profile
+                </Button>
+
+                <Button
+                  onClick={handleLogout}
+                  variant="ghost"
+                  className="w-1/3 md:w-auto"
+                >
+                  Logout
+                </Button>
+              </div>
+
             </div>
+
           </Card>
 
         )}
@@ -119,7 +137,7 @@ export function Leaderboard() {
                     <div
                       key={game.id}
                       className={`flex items-center justify-between p-4 rounded-xl bg-black/40 border transition ${isLastGame
-                        ? "border-mmx-orange"
+                        ? "border-mmx-orange border-2"
                         : "border-neutral-800 hover:border-neutral-700"
                         }`}
                     >

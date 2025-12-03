@@ -13,8 +13,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses = {
     primary: "bg-mmx-orange text-white hover:brightness-110",
-    secondary: "bg-neutral-800 text-white hover:bg-neutral-700",
-    ghost: "bg-black/50 text-white hover:bg-neutral-700",
+    secondary: "bg-white/80 text-black hover:bg-white/100",
+    ghost: "bg-black/70 text-white hover:bg-black/20",
 };
 
 const sizeClasses = {
@@ -32,7 +32,7 @@ export function Button({
     disabled,
     ...props
 }: ButtonProps) {
-    const baseClasses = "rounded-xl font-medium transition disabled:opacity-40 disabled:cursor-not-allowed";
+    const baseClasses = "rounded-xl font-medium transition disabled:opacity-40 disabled:cursor-not-allowed border-none ";
     const widthClass = fullWidth ? "w-full" : "w-auto";
     const variantClass = variantClasses[variant];
     const sizeClass = sizeClasses[size];
