@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# 🟠 Who Sings?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <picture>
+    <img src="./src/assets/ws_logo.png" alt="Who Sings? – Music Trivia Game" />
+  </picture>
+</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-61dafb?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-5-646cff?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/TailwindCSS-3-06b6d4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/Zustand-Store-0f172a?style=for-the-badge" alt="Zustand" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+Who Sings is a fast, engaging music quiz inspired by the Musixmatch ecosystem.
+Players are challenged to guess which artist sings a given lyric line across a sequence of 5 timed questions. Each correct answer awards points, and at the end of the game users can view their global ranking and personal match history.
+A quick, competitive experience for music lovers.
 
-## React Compiler
+![How to Play](./public/howToPlay.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Simple login using your name
+- 5-question lyric-based quiz
+- Circular countdown timer for each question
+- Scoring system with accuracy tracking
+- Global leaderboard with highlight for your latest score
+- Personal profile with full game history
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React + Typescript
+- Vite
+- Zustand
+- TailwindCSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Installation & Setup
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/roccorefice/who-sings.git
+   cd who-sings
+   ```
+2. **Install dependencies**
+   ```sh
+   npm install
+   ```
+3. **Start the development server**
+   ```sh
+   npm run dev
+   ```
+4. **Than open**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+   ```sh
+   http://localhost:5173
+## Production build
+1. **Generate the production bundle:**
+   ```sh
+   npm run build
+   ```
+2. **Preview the build locally:**
+   ```sh
+   npm run preview
+   ```
