@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
+import { GameList } from "../components/GameList";
 
 export function Profile() {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ export function Profile() {
                     </div>
                     <div className="flex gap-2 w-1/2 justify-end self-start">
                         <Button onClick={() => navigate("/leaderboard")} variant="secondary" size="sm">
-                            Profile
+                            Back
                         </Button>
                         <Button onClick={handleLogout} variant="ghost" size="sm">
                             Logout
@@ -70,64 +71,13 @@ export function Profile() {
                     </Button>
                 </div>
 
-                <Card padding="sm" className="max-h-[60vh] overflow-y-auto mmx-scroll pt-0">
-
+                <Card padding="sm" className="max-h-[70vh] overflow-y-auto w-full mx-auto md:w-1/2 md:min-w-[600px] pt-0 mmx-scroll">
                     <h2 className="text-md flex items-center gap-2 sticky top-0 bg-mmx-card py-4">
                         <span>📊</span>
                         <span>Your game history</span>
                     </h2>
-
-                    {myGames.length === 0 ? (
-                        <div className="text-center py-12">
-                            <p className="text-gray-400 mb-4">No games played yet!</p>
-                            <Button onClick={() => navigate("/game")}>Start your first game</Button>
-                        </div>
-                    ) : (
-                        <div className="space-y-3">
-                            {myGames
-                                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                                .map((game, index) => (
-                                    <div
-                                        key={game.id}
-                                        className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-neutral-800 hover:border-neutral-700 transition"
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-full bg-mmx-orange/10 flex items-center justify-center">
-                                                <span className="text-xl font-bold text-mmx-orange">
-                                                    #{myGames.length - index}
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-medium text-gray-300">
-                                                    {new Date(game.date).toLocaleDateString("it-IT", {
-                                                        weekday: "short",
-                                                        day: "numeric",
-                                                        month: "short",
-                                                        year: "numeric",
-                                                    })}
-                                                </p>
-                                                <p className="text-xs text-gray-400">
-                                                    {new Date(game.date).toLocaleTimeString("it-IT", {
-                                                        hour: "2-digit",
-                                                        minute: "2-digit",
-                                                    })}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="text-right">
-                                            <p className="text-lg font-bold text-mmx-orange">{game.score} pts</p>
-                                            <p className="text-xs text-gray-400">
-                                                {game.correctAnswers}/{game.totalQuestions} correct •{" "}
-                                                {Math.round((game.correctAnswers / game.totalQuestions) * 100)}%
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                        </div>
-                    )}
+                    <GameList games={myGames} variant="myGames" />
                 </Card>
-
 
             </div >
         </div >

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../contexts/useGameStore";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
+import { GameList } from "../components/GameList";
 
 export function Leaderboard() {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ export function Leaderboard() {
                 onClick={handlePlayAgain}
                 className="w-full md:flex-1"
               >
-                Play Again
+                Play again
               </Button>
 
               <div className="flex gap-3 md:w-auto w-full md:flex-none">
@@ -112,79 +113,21 @@ export function Leaderboard() {
 
         )}
 
-        {/* Game history */}
         <Card
-          padding="sm"
-          className="max-h-[70vh] overflow-y-auto w-full mx-auto md:w-1/2 md:min-w-[600px] pt-0 mmx-scroll"
-        >
-          <h2 className="text-md flex items-center gap-2 sticky top-0 bg-mmx-card py-4">
-            <span>🏆</span>
-            <span>Top scores</span>
-          </h2>
+              padding="sm"
+              className="max-h-[70vh] overflow-y-auto w-full mx-auto md:w-1/2 md:min-w-[600px] pt-0 mmx-scroll"
+            >
+              <h2 className="text-md flex items-center gap-2 sticky top-0 bg-mmx-card py-4">
+                <span>🏆</span>
+                <span>Top scores</span>
+              </h2>
 
-          {history.length === 0 ? (
-            <p className="text-center text-gray-400 py-8">
-              No games played yet. Start your first game!
-            </p>
-          ) : (
-            <div className="space-y-2">
-              {[...history]
-                .sort((a, b) => b.score - a.score)
-                .map((game, index) => {
-                  const isLastGame = history.length > 1 && lastGame && game.id === lastGame.id;
-
-                  return (
-                    <div
-                      key={game.id}
-                      className={`flex items-center justify-between p-4 rounded-xl bg-black/40 border transition ${isLastGame
-                        ? "border-mmx-orange border-2"
-                        : "border-neutral-800 hover:border-neutral-700"
-                        }`}
-                    >
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${index === 0
-                            ? "bg-mmx-orange text-white"
-                            : "bg-neutral-800 text-gray-400"
-                            }`}
-                        >
-                          {index + 1}
-                        </div>
-                        <div>
-                          <span className="block text-md text-gray-300 mb-1 uppercase">
-                            <span className="font-medium">
-                              {game.playerName}
-                            </span>
-                          </span>
-                          <span className="block text-sm text-gray-300 font-medium">
-                            {new Date(game.date).toLocaleDateString("it-IT", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="block text-md font-bold text-mmx-orange">
-                          {game.score} pts
-                        </span>
-                        <span className="pt-2 block text-sm text-gray-300/70">
-                          {Math.round((game.correctAnswers / game.totalQuestions) * 100)}%
-                          accuracy
-                        </span>
-                        <span className="pt-1 block text-sm text-gray-300/70">
-                          {game.correctAnswers}/{game.totalQuestions} correct
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          )}
-        </Card>
+              <GameList
+                games={history}
+                variant="leaderboard"
+                lastGameId={lastGame?.id ?? null}
+              />
+            </Card>
 
       </div>
     </div>
