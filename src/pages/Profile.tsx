@@ -70,7 +70,7 @@ export function Profile() {
                     </Button>
                 </div>
 
-                <Card padding="sm" className="max-h-[70vh] overflow-y-auto w-full mx-auto md:w-1/2 md:min-w-[600px] pt-0 mmx-scroll">
+                <Card padding="sm" className="max-h-[70vh] overflow-y-auto w-full md:min-w-[600px] pt-0 mmx-scroll">
                     <h2 className="text-md flex items-center gap-2 sticky top-0 bg-mmx-card py-4">
                         <span>📊</span>
                         <span>Your game history</span>
