@@ -33,7 +33,7 @@ export function Button({
     ...props
 }: ButtonProps) {
     const baseClasses = "rounded-xl font-medium transition disabled:opacity-40 disabled:cursor-not-allowed border-none ";
-    const widthClass = fullWidth ? "w-full" : "w-auto";
+    const widthClass = fullWidth ? "w-full" : "";
     const variantClass = variantClasses[variant];
     const sizeClass = sizeClasses[size];
 

@@ -12,7 +12,6 @@ export function Profile() {
     // Filtra solo le partite dell'utente corrente
     const myGames = history.filter((game) => game.playerName === playerName);
 
-    // Calcola statistiche
     const totalGames = myGames.length;
     const totalScore = myGames.reduce((sum, game) => sum + game.score, 0);
     const totalCorrect = myGames.reduce((sum, game) => sum + game.correctAnswers, 0);
@@ -29,48 +28,45 @@ export function Profile() {
     return (
         <div className="h-screen bg-mmx-bg text-white p-4  w-screen">
             <div className="flex flex-col gap-y-4 h-full justify-center max-h-1/3 w-full mx-auto md:w-1/2 md:min-w-[600px]">
-                {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="w-1/2 justify-start">
                         <h1 className="text-3xl font-bold text-mmx-orange">Profile</h1>
-                        <p className="text-gray-400 mt-1">Welcome back, {playerName}!</p>
                     </div>
-                    <div className="flex gap-2 w-1/2 justify-end">
-                        <Button onClick={() => navigate("/leaderboard")} variant="secondary" size="md">
-                            Back
+                    <div className="flex gap-2 w-1/2 justify-end self-start">
+                        <Button onClick={() => navigate("/leaderboard")} variant="secondary" size="sm">
+                            Profile
                         </Button>
-                        <Button onClick={handleLogout} variant="ghost" size="md">
+                        <Button onClick={handleLogout} variant="ghost" size="sm">
                             Logout
                         </Button>
                     </div>
                 </div>
 
-                {/* Statistics */}
                 <Card className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="text-center space-y-2">
                         <p className="text-4xl font-bold text-mmx-orange">{totalGames}</p>
-                        <p className="text-sm text-gray-400">Games Played</p>
+                        <p className="text-sm text-gray-400">Games played</p>
                     </div>
                     <div className="text-center space-y-2">
                         <p className="text-4xl font-bold text-mmx-orange">{bestScore}</p>
-                        <p className="text-sm text-gray-400">Best Score</p>
+                        <p className="text-sm text-gray-400">Best score</p>
                     </div>
                     <div className="text-center space-y-2">
                         <p className="text-4xl font-bold">{avgScore}</p>
-                        <p className="text-sm text-gray-400">Avg Score</p>
+                        <p className="text-sm text-gray-400">Avg score</p>
                     </div>
                     <div className="text-center space-y-2">
                         <p className="text-4xl font-bold">{avgAccuracy}%</p>
-                        <p className="text-sm text-gray-400">Avg Accuracy</p>
+                        <p className="text-sm text-gray-400">Avg accuracy</p>
                     </div>
                 </Card>
 
                 <div className="flex gap-3">
                     <Button onClick={() => navigate("/leaderboard")} variant="secondary" className="flex-1">
-                        View Leaderboard
+                        View leaderboard
                     </Button>
                     <Button onClick={() => navigate("/game")} className="flex-1">
-                        Play New Game
+                        Play new game
                     </Button>
                 </div>
 
@@ -78,13 +74,13 @@ export function Profile() {
 
                     <h2 className="text-md flex items-center gap-2 sticky top-0 bg-mmx-card py-4">
                         <span>📊</span>
-                        <span>Your Game History</span>
+                        <span>Your game history</span>
                     </h2>
 
                     {myGames.length === 0 ? (
                         <div className="text-center py-12">
                             <p className="text-gray-400 mb-4">No games played yet!</p>
-                            <Button onClick={() => navigate("/game")}>Start Your First Game</Button>
+                            <Button onClick={() => navigate("/game")}>Start your first game</Button>
                         </div>
                     ) : (
                         <div className="space-y-3">
