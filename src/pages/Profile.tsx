@@ -10,7 +10,6 @@ export function Profile() {
     const history = useGameStore((s) => s.history);
     const logout = useGameStore((s) => s.logout);
 
-    // Filtra solo le partite dell'utente corrente
     const myGames = history.filter((game) => game.playerName === playerName);
 
     const totalGames = myGames.length;

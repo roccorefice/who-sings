@@ -21,7 +21,6 @@ export function Login() {
   return (
     <div className="min-h-screen bg-mmx-bg flex items-center justify-center px-4 w-screen">
       <div className="w-full max-w-md">
-        {/* Logo e titolo */}
         <div className="text-center mb-8 space-y-2">
           <img
             src={ws_logo}
