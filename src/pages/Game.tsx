@@ -6,16 +6,13 @@ import mxm_logo from "../assets/mxm_orange_logo.png";
 import ws_logo from "../assets/ws_logo.png";
 import { Button } from "../components/Button";
 import { generateQuizQuestions } from "../utils/helper";
-
-const TOTAL_QUESTIONS = 5;
-const POINTS_PER_CORRECT = 10;
+import { CircularTimer } from "../components/CircularTimer";
 
 export function Game() {
     const navigate = useNavigate();
     const hasLoadedQuestions = useRef(false);
 
     // Zustand store
-    const score = useGameStore((s) => s.score);
     const status = useGameStore((s) => s.status);
     const questions = useGameStore((s) => s.questions);
     const currentQuestionIndex = useGameStore((s) => s.currentQuestionIndex);
@@ -28,9 +25,19 @@ export function Game() {
     const setQuestions = useGameStore((s) => s.setQuestions);
     const setStatus = useGameStore((s) => s.setStatus);
 
+    const currentQuestion = questions[currentQuestionIndex];
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+
+    const TOTAL_QUESTIONS = 5;
+    const POINTS_PER_CORRECT = 10;
+    const TIME_PER_QUESTION = 20;
+
+    const [timeLeft, setTimeLeft] = useState(TIME_PER_QUESTION);
+    const timerRef = useRef<number | null>(null);
+
 
     useEffect(() => {
         if (hasLoadedQuestions.current) return;
@@ -57,10 +64,55 @@ export function Game() {
         loadQuestions();
     }, []);
 
-    const currentQuestion = questions[currentQuestionIndex];
+    useEffect(() => {
+        if (!questions.length) return;
+
+        setTimeLeft(TIME_PER_QUESTION);
+
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+        }
+
+        timerRef.current = window.setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => {
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+            }
+        };
+    }, [currentQuestionIndex, questions.length, TIME_PER_QUESTION]);
+
+    useEffect(() => {
+        if (timeLeft === 0) {
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+            }
+            handleTimeOut();
+        }
+    }, [timeLeft]);
+
+
+
+
+    const handleTimeOut = () => {
+        if (selectedAnswer) return;
+        handleNext();
+    };
+
 
     const handleAnswer = (answer: string) => {
         if (selectedAnswer) return;
+
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+        }
 
         setSelectedAnswer(answer);
         const correct = answer === currentQuestion.correctArtist;
@@ -84,6 +136,9 @@ export function Game() {
     };
 
     const handleLogout = () => {
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+        }
         resetGame();
         navigate("/login");
     };
@@ -145,21 +200,28 @@ export function Game() {
                 </div>
 
                 <div>
-                    <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
-                        <span>
-                            Question {currentQuestionIndex + 1} of {questions.length}
-                        </span>
-                        <span>Score: {score}</span>
+                    <div className="flex items-center justify-between text-xs text-gray-400 mb-[-16px]">
+                        Question {currentQuestionIndex + 1} of {questions.length}
                     </div>
-                    <div className="h-1 bg-neutral-800 rounded-full overflow-hidden">
-                        <div
-                            className="h-full bg-mmx-orange transition-all duration-300"
-                            style={{
-                                width: `${((currentQuestionIndex + 1) / questions.length) * 100}%`,
-                            }}
+
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1 h-1 bg-neutral-800 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-mmx-orange transition-all duration-300"
+                                style={{
+                                    width: `${((currentQuestionIndex + 1) / questions.length) * 100}%`,
+                                }}
+                            />
+                        </div>
+
+                        <CircularTimer
+                            timeLeft={timeLeft}
+                            totalTime={TIME_PER_QUESTION}
+                            size={56}
                         />
                     </div>
                 </div>
+
 
                 {/* Lyric snippet */}
                 <Card className="p-0 gap-y-2 grid ">
@@ -225,8 +287,8 @@ export function Game() {
                     className="absolute bottom-6 left-6 right-6 md:h-16"
                 >
                     {currentQuestionIndex < questions.length - 1
-                        ? "Next Question →"
-                        : "Finish Game 🏁"}
+                        ? "Next question →"
+                        : "Finish game 🏁"}
                 </Button>
             </div>
         </div>
